@@ -24,6 +24,7 @@ const Header = () => {
         <Tab LinkComponent= {NavLink}to='/contact'label='Contact'/>
         <Tab LinkComponent= {NavLink}to='/ProductCatalog'label='ProductCatalog'/>
         <Tab LinkComponent= {NavLink}to='/ProducrCard'label='ProducrCard'/>
+        <Tab LinkComponent= {NavLink}to='/FetchRegistration'label='FetchRegistartion'/>
         
       </Tabs>  
       </Toolbar>  

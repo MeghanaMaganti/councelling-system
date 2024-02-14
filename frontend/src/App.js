@@ -13,6 +13,7 @@ import Hello from './Components/Hello';
 import Contact from './Components/Contact';
 import ProducrCard from './Components/ProducrCard';
 import ProductCatalog from './Components/ProductCatalog';
+import FetchRegistration from './Components/FetchRegistration';
 
 
 
@@ -32,6 +33,7 @@ function App() {
       <Route path='/contact' element={<Contact/>} exact/>
       <Route path='/producrCard' element={<ProducrCard/>} exact/>
       <Route path='/productCatalog' element={<ProductCatalog/>} exact/>
+      <Route path='/FetchRegistration' element={<FetchRegistration/>} exact/>
     </Routes>  
   </main>  
   </React.Fragment>  
