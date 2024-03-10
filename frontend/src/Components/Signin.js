@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,31 +15,31 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [welcomeMessage, setWelcomeMessage] = useState('');
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+      const response = await axios.post('http://localhost:8080/signin', formData);
+      const { username } = response.data;
+      localStorage.setItem("token", response.data.token);
+      console.log(response.data);
+
+      setWelcomeMessage(`Welcome, ${username}!`);
+      navigate('/', {state:{username}});
+    } catch (error) {
+      setErrorMessage('Invalid email or password');
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -60,6 +62,8 @@ export default function SignIn() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              onChange={handleChange}
+              value={formData.email}
               margin="normal"
               required
               fullWidth
@@ -70,6 +74,8 @@ export default function SignIn() {
               autoFocus
             />
             <TextField
+              onChange={handleChange}
+              value={formData.password}
               margin="normal"
               required
               fullWidth
@@ -98,14 +104,15 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="/Signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
+            {welcomeMessage && <Typography variant="body1" color="primary">{welcomeMessage}</Typography>}
+            {errorMessage && <Typography color="error">{errorMessage}</Typography>}
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

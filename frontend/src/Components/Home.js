@@ -1,4 +1,5 @@
 import React from 'react'
+import HomePage from './HomePage';
 import Hello from './Hello'
 import Greet from './Greet'
 import Message from './Message'
@@ -7,6 +8,9 @@ import DataFetch from './DataFetch'
 import Contact from './Contact'
 import ProducrCard from './ProducrCard'
 import ProductCatalog from './ProductCatalog'
+import FetchRegistration from './FetchRegistration'
+import StudentForm from './StudentForm.'
+import ExamDetails from './ExamDetails';
 
 
 
@@ -14,11 +18,23 @@ import ProductCatalog from './ProductCatalog'
  const Home = () => {
   return (
     <div>
-        
-       {/*<ProducrCard/>*/}
-      {/*<Contact/>
-      <DataFetch/>
-      <Counter/>
+
+      
+      
+       {/*<DataFetch/>*/}
+       <HomePage/>
+  
+       {/*
+       <Counter/>
+       <ProductCatalog/>
+       <Hello/>
+       <Greet/>
+
+       <Counter/>
+       <ProducrCard/>
+       <Contact/>
+           
+      
       <Message/> */}
       {/*<Hello name='Meghana' id='12'/>
       <Hello name='Sana'id='13'/>

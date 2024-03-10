@@ -1,0 +1,31 @@
+.about-us-section { 
+    background-color: #f9f9f9; 
+    padding: 20px; 
+    text-align: center; 
+  } 
+   
+  .team-members { 
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+  } 
+   
+  .team-member { 
+    background-color: pink; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    padding: 20px; 
+    margin: 10px; 
+    width: calc(33.33% - 20px); 
+    max-width: 300px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  } 
+   
+  .team-member h3 { 
+    margin-top: 0; 
+  } 
+   
+  .team-member p { 
+    margin-bottom: 10px; 
+  } 
+  

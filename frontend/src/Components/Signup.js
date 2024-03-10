@@ -12,19 +12,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import axios from 'axios'
-
+import axios from 'axios';
+import {useNavigate}from 'react-router-dom';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://www.kluniversity.in/">
-        KLEF
+      <Link color="inherit" href="http://www.kluniversity.in/">
+        klef
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -37,30 +36,30 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      name:data.get('Name'),
+      id:data.get('id'),
+      name:data.get('name'),
       role:data.get('role'),
       email: data.get('email'),
       password: data.get('password'),
     });
-    axios.post('http://localhost:8080/register',{
-      name:data.get('Name'),
-      role:data.get('role'),
-      email: data.get('email'),
-      password: data.get('password'),
-    }).then(res=>{
+    axios.post('http://localhost:8080/register', {id:data.get('id'),name:data.get('name'),
+    role:data.get('role'),
+    email: data.get('email'),
+    password: data.get('password'),}).then(res=>{
       console.log(res.data)
     })
+    navigate('/success')
   };
-  const [role, setRole] = React.useState('');
-
-  const handleChange = (event) => {
-    setRole(event.target.value);
-  };
-
+    const [role, setRole] = React.useState('');
+  
+    const handleChange = (event) => {
+      setRole(event.target.value);
+    };
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -84,11 +83,12 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="Name"
                   required
                   fullWidth
-                  id="Name"
+                  id="name"
                   label="Name"
+                  name="name"
+                  
                   autoFocus
                 />
               </Grid>
@@ -99,13 +99,13 @@ export default function SignUp() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          name="role"
           value={role}
           label="Role"
+          name="role"
           onChange={handleChange}
         >
           <MenuItem value={1}>Student</MenuItem>
-          <MenuItem value={2}>faculty</MenuItem>
+          <MenuItem value={2}>Examiner</MenuItem>
           <MenuItem value={3}>Admin</MenuItem>
         </Select>
       </FormControl>
@@ -134,30 +134,30 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-control={<Checkbox value="allowExtraEmails" color="primary" />}
-label="I want to receive inspiration, marketing promotions and updates via email."
-/>
-</Grid>
-</Grid>
-<Button
-type="submit"
-fullWidth
-variant="contained"
-sx={{ mt: 3, mb: 2 }}
->
-Sign Up
-</Button>
-<Grid container justifyContent="flex-end">
-<Grid item>
-<Link href="/signin" variant="body2">
-Already have an account? Sign in
-</Link>
-</Grid>
-</Grid>
-</Box>
-</Box>
-<Copyright sx={{ mt: 5 }} />
-</Container>
-</ThemeProvider>
-);
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
+  );
 }
